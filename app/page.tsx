@@ -34,7 +34,7 @@ export default function PatientResponseFlowPage() {
     if (hasLoadedRef.current) return;
     hasLoadedRef.current = true;
     const saved = loadFlowValues();
-    if (saved) {
+    if (saved && saved.campaign) {
       setValues(saved);
       setStep("live");
     }
@@ -77,7 +77,7 @@ export default function PatientResponseFlowPage() {
       education_short: opt?.education_short ?? prev.education_short,
       education_long: opt?.education_long ?? prev.education_long,
     }));
-    setStep("form");
+    if (step === "campaign") setStep("form");
   };
 
   const handleSaveAndContinue = () => {
@@ -106,26 +106,35 @@ export default function PatientResponseFlowPage() {
         </p>
       </div>
 
-      {step === "campaign" && (
+      <div
+        className={
+          step !== "campaign"
+            ? "sticky top-0 z-10 -mx-1 bg-[var(--background)] px-1 pb-4 pt-1"
+            : ""
+        }
+      >
         <Card>
           <CardHeader
-            title="1. Choose Your Campaign"
-            subtitle="Select the type of campaign to get started"
+            title={
+              step === "campaign"
+                ? "1. Choose Your Campaign"
+                : "Campaign"
+            }
+            subtitle={
+              step === "campaign"
+                ? "Select the type of campaign to get started"
+                : "Change anytime to switch sequence messaging"
+            }
           />
           <CampaignSelectStep
             selected={values.campaign}
             onSelect={handleCampaignSelect}
           />
         </Card>
-      )}
+      </div>
 
       {step === "form" && (
         <>
-          <div className="flex items-center justify-between gap-4">
-            <Button variant="ghost" size="sm" onClick={() => setStep("campaign")}>
-              ← Change campaign
-            </Button>
-          </div>
           <ResponseFlowFormStep
             values={values}
             onChange={setValues}

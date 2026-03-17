@@ -57,7 +57,7 @@ export const CAMPAIGN_OPTIONS: Array<{
 
 /** Form values for the Patient Response Flow. Maps to our placeholders and High Level CRM fields. */
 export interface ResponseFlowValues {
-  campaign: CampaignType;
+  campaign: CampaignType | ""; // "" = none selected (campaign step only)
   practice_name: string;
   full_address: string;
   phone: string;
@@ -71,7 +71,7 @@ export interface ResponseFlowValues {
 }
 
 export const defaultResponseFlowValues: ResponseFlowValues = {
-  campaign: "pain_device",
+  campaign: "", // No selection by default
   practice_name: "",
   full_address: "",
   phone: "",
