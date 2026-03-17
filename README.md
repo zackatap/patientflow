@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Patient Response Flow
 
-## Getting Started
+Standalone app for crafting personalized SMS and email sequences for your CRM. No login required—data is saved in the browser via localStorage.
 
-First, run the development server:
+**Live at:** [patientflow.automatedpractice.com](https://patientflow.automatedpractice.com)
+
+## Features
+
+- **No login** – Use immediately, data persists in your browser
+- **Campaign types** – Shockwave, Chiropractic, Decompression, Neuropathy (pre-filled education copy)
+- **Form fields** – Practice details, package names, education short/long
+- **Generated sequence** – 10 SMS + 7 emails with wait steps, ready to copy into High Level or any CRM
+
+## Setup
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Optional env
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create `.env.local`:
 
-## Learn More
+```
+NEXT_PUBLIC_APP_NAME="Patient Flow"
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment (Vercel)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Connect your repo at [vercel.com](https://vercel.com)
+2. Add domain: **patientflow.automatedpractice.com**
+   - Project Settings → Domains → Add
+   - Point your DNS (CNAME or A record) per Vercel's instructions
+3. Deploy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+No database or auth config required.
