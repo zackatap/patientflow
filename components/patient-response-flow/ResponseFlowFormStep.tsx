@@ -46,7 +46,7 @@ const BASE_FIELDS: Array<{
     label: "Education (short)",
     placeholder: "Brief intro sentence for SMS",
     helperText: "One short sentence for the first text message.",
-    multiline: false,
+    multiline: true,
   },
   {
     key: "education_long",
@@ -112,7 +112,7 @@ export function ResponseFlowFormStep({
                 labelTooltip={tooltip}
                 value={values[key]}
                 onChange={(e) => handleChange(key, e.target.value)}
-                rows={3}
+                rows={key === "education_short" ? 2 : 3}
                 disabled={disabled}
               />
             ) : (

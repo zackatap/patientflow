@@ -96,23 +96,17 @@ export default function PatientResponseFlowPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6">
+    <div className="mx-auto max-w-6xl space-y-6 px-4 sm:px-6 lg:px-8">
       <div>
-        <h1 className="text-2xl font-bold text-[var(--foreground)]">
-          Patient Response Flow
+        <h1 className="text-2xl sm:text-3xl font-bold text-[var(--foreground)] tracking-tight">
+          <span>Craft the</span>{" "}
+          <span className="font-serif italic text-[var(--accent)]">response system.</span>
         </h1>
         <p className="mt-1 text-[var(--muted)]">
-          Craft personalized SMS and email sequences for your CRM.
+          Personalized SMS and email sequences for your CRM.
         </p>
       </div>
-
-      <div
-        className={
-          step !== "campaign"
-            ? "sticky top-0 z-10 -mx-1 bg-[var(--background)] px-1 pb-4 pt-1"
-            : ""
-        }
-      >
+      <div>
         <Card>
           <CardHeader
             title={

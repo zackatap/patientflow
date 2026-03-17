@@ -83,33 +83,30 @@ export function GeneratedSequence({ sequence, values, isAuthenticated }: Generat
       {sequence.map((item, index) =>
         item.type === "wait" ? (
           <div key={index} className="flex justify-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-500/20 px-2.5 py-0.5 text-xs font-medium text-orange-400">
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium"
+              style={{ backgroundColor: "var(--badge-wait-bg)", color: "var(--badge-wait-text)" }}
+            >
               <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Wait {item.duration}
             </span>
           </div>
-        ) : (
-          <div
-            key={index}
-            className="w-full min-w-0 rounded-lg border border-[var(--border)] bg-[var(--input)] p-4"
-          >
-            <div className="mb-2 flex items-center justify-between gap-2">
+        ) : item.type === "sms" ? (
+          <div key={index} className="space-y-2">
+            <div className="flex items-center justify-between gap-2">
               <span
-                className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                  item.type === "sms"
-                    ? "bg-emerald-500/20 text-emerald-400"
-                    : "bg-blue-500/20 text-blue-400"
-                }`}
+                className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style={{ backgroundColor: "var(--badge-sms-bg)", color: "var(--badge-sms-text)" }}
               >
-                {item.type.toUpperCase()} {item.messageIndex ?? index + 1}
+                SMS {item.messageIndex ?? index + 1}
               </span>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => copyToClipboard(item, index)}
-                className="shrink-0"
+                className="shrink-0 -mr-1"
               >
                 {copiedIndex === index ? (
                   <>
@@ -128,14 +125,59 @@ export function GeneratedSequence({ sequence, values, isAuthenticated }: Generat
                 )}
               </Button>
             </div>
-            {item.type === "email" && item.subject && (
-              <p className="mb-2 text-sm font-medium text-[var(--foreground)]">
-                Subject: {item.subject}
+            <div className="flex justify-start">
+              <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-[#E8F5E9] px-4 py-3 shadow-sm border border-[#C8E6C9]">
+                <p className="whitespace-pre-wrap text-sm text-[var(--foreground)]">
+                  {item.content}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div key={index} className="space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <span
+                className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+                style={{ backgroundColor: "var(--badge-email-bg)", color: "var(--badge-email-text)" }}
+              >
+                EMAIL {item.messageIndex ?? index + 1}
+              </span>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => copyToClipboard(item, index)}
+                className="shrink-0 -mr-1"
+              >
+                {copiedIndex === index ? (
+                  <>
+                    <svg className="mr-1.5 h-4 w-4 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <svg className="mr-1.5 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    Copy
+                  </>
+                )}
+              </Button>
+            </div>
+            <div className="rounded-lg border border-[var(--border)] bg-white p-4 shadow-sm">
+              {item.subject && (
+                <div className="border-b border-[var(--border)] pb-3 mb-3">
+                  <p className="text-xs font-mono text-[var(--muted)] uppercase tracking-wider mb-0.5">Subject</p>
+                  <p className="text-sm font-semibold text-[var(--foreground)]">
+                    {item.subject}
+                  </p>
+                </div>
+              )}
+              <p className="whitespace-pre-wrap text-sm text-[var(--foreground)] leading-relaxed">
+                {item.content}
               </p>
-            )}
-            <p className="whitespace-pre-wrap text-sm text-[var(--muted)]">
-              {item.content}
-            </p>
+            </div>
           </div>
         )
       )}

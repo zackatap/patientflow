@@ -1,25 +1,36 @@
 @import "tailwindcss";
 
+/* Preset C — Brutalist Signal */
 :root {
-  --background: #0f0f12;
-  --foreground: #f4f4f5;
-  --muted: #71717a;
-  --card: #18181b;
-  --card-hover: #1f1f23;
-  --accent: #8b5cf6;
-  --accent-hover: #7c3aed;
+  --primary: #E8E4DD;
+  --background: #F5F3EE;
+  --foreground: #111111;
+  --muted: #5c5c5c;
+  --card: #E8E4DD;
+  --card-hover: #E0DBD4;
+  --accent: #E63B2E;
+  --accent-hover: #c93226;
   --accent-secondary: #3b82f6;
   --success: #22c55e;
   --error: #ef4444;
-  --border: #27272a;
-  --input: #27272a;
+  --border: #d4cfc8;
+  --input: #E8E4DD;
+  --placeholder: #d4d4d4;
+  --dark: #111111;
+  --badge-sms-bg: #d1fae5;
+  --badge-sms-text: #047857;
+  --badge-email-bg: #dbeafe;
+  --badge-email-text: #1d4ed8;
+  --badge-wait-bg: #ffedd5;
+  --badge-wait-text: #c2410c;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk);
+  --font-serif: var(--font-dm-serif);
+  --font-mono: var(--font-space-mono);
 }
 
 body {
@@ -28,6 +39,39 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
+/* Noise overlay — eliminates flat digital gradients */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Container radii */
+.rounded-container {
+  border-radius: 2rem;
+}
+.rounded-container-lg {
+  border-radius: 3rem;
+}
+
+/* Magnetic button hover */
+.btn-magnetic {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.btn-magnetic:hover {
+  transform: scale(1.03);
+}
+
+/* Link/interactive lift on hover — apply .hover-lift where needed */
+.hover-lift:hover {
+  transform: translateY(-1px);
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

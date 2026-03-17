@@ -31,7 +31,7 @@ export function CampaignSelectStep({ selected, onSelect }: CampaignSelectStepPro
               key={opt.id}
               type="button"
               onClick={() => onSelect(opt.id)}
-              className={`group relative flex min-w-0 w-full items-center overflow-hidden rounded-lg border py-2.5 pl-3 pr-20 text-left transition-all duration-150 sm:py-3 sm:pl-4 sm:pr-24 ${
+              className={`group relative flex min-w-0 w-full items-center overflow-hidden rounded-[1.25rem] border py-2.5 pl-3 pr-20 text-left transition-all duration-150 sm:py-3 sm:pl-4 sm:pr-24 ${
                 isSelected
                   ? "border-[var(--accent)] bg-[var(--accent)]/10"
                   : "border-[var(--border)] bg-[var(--card)]/80 hover:border-[var(--border)]/80 hover:bg-[var(--card-hover)]"
@@ -50,7 +50,7 @@ export function CampaignSelectStep({ selected, onSelect }: CampaignSelectStepPro
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               )}
-              <div className="absolute right-0 top-0 bottom-0 w-20 overflow-hidden rounded-r-lg bg-[var(--input)] sm:w-24">
+              <div className="absolute right-0 top-0 bottom-0 w-20 overflow-hidden rounded-r-[1.25rem] bg-[var(--input)] sm:w-24">
                 <Image
                   src={CAMPAIGN_IMAGES[opt.id]}
                   alt=""
@@ -60,7 +60,7 @@ export function CampaignSelectStep({ selected, onSelect }: CampaignSelectStepPro
                 />
                 {/* Gradient overlay blends image into card background */}
                 <div
-                  className="pointer-events-none absolute inset-0 rounded-r-lg"
+                  className="pointer-events-none absolute inset-0 rounded-r-[1.25rem]"
                   style={{
                     background: "linear-gradient(to right, var(--card) 0%, transparent 60%)",
                   }}
