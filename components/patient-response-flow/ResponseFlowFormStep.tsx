@@ -12,51 +12,6 @@ interface ResponseFlowFormStepProps {
   disabled?: boolean;
 }
 
-const BASE_FIELDS: Array<{
-  key: keyof ResponseFlowValues;
-  label: string;
-  placeholder: string;
-  helperText?: string;
-  tooltip?: string;
-  multiline?: boolean;
-}> = [
-  { key: "practice_name", label: "Practice Name", placeholder: "e.g. Smith Chiropractic" },
-  { key: "full_address", label: "Full Address", placeholder: "e.g. 123 Main St, City, ST 12345" },
-  {
-    key: "phone",
-    label: "Phone",
-    placeholder: "e.g. (555) 123-4567",
-  },
-  {
-    key: "package_name_with_price",
-    label: "Package Name (with price)",
-    placeholder: "e.g. $49 New Patient Exam",
-  },
-  {
-    key: "package_name_casual",
-    label: "Casual Service Name",
-    placeholder: "e.g. chiropractic adjustment, Softwave treatment",
-    helperText: 'e.g. "chiropractic adjustment", "Softwave treatment"',
-    tooltip:
-      "Used in sentences like: Hi John, have you ever had a ___ before?",
-  },
-  { key: "outreach_name", label: "Outreach Name", placeholder: "e.g. Dr. Smith" },
-  {
-    key: "education_short",
-    label: "Education (short)",
-    placeholder: "Brief intro sentence for SMS",
-    helperText: "One short sentence for the first text message.",
-    multiline: true,
-  },
-  {
-    key: "education_long",
-    label: "Education (long)",
-    placeholder: "Full paragraph for the first email",
-    helperText: "Full paragraph introducing your practice and value.",
-    multiline: true,
-  },
-];
-
 export function ResponseFlowFormStep({
   values,
   onChange,
@@ -64,24 +19,37 @@ export function ResponseFlowFormStep({
 }: ResponseFlowFormStepProps) {
   const campaign = CAMPAIGN_OPTIONS.find((c) => c.id === values.campaign);
   const hasProductName = campaign?.hasProductName ?? false;
-  const fields = hasProductName
-    ? [
-        ...BASE_FIELDS.slice(0, 6),
-        {
-          key: "product_name" as keyof ResponseFlowValues,
-          label: "Product Name",
-          placeholder: "e.g. Softwave TRT or Trifecta PRO 450",
-          helperText: undefined as string | undefined,
-          tooltip: undefined as string | undefined,
-          multiline: false as boolean,
-        },
-        ...BASE_FIELDS.slice(6),
-      ]
-    : BASE_FIELDS;
 
   const handleChange = (key: keyof ResponseFlowValues, value: string) => {
     onChange({ ...values, [key]: value });
   };
+
+  const renderInput = (key: keyof ResponseFlowValues, label: string, placeholder: string, helperText?: string, tooltip?: string) => (
+    <Input
+      key={key}
+      label={label}
+      placeholder={placeholder}
+      helperText={helperText}
+      labelTooltip={tooltip}
+      value={values[key]}
+      onChange={(e) => handleChange(key, e.target.value)}
+      disabled={disabled}
+    />
+  );
+
+  const renderTextarea = (key: keyof ResponseFlowValues, label: string, placeholder: string, helperText?: string, tooltip?: string, rows?: number) => (
+    <Textarea
+      key={key}
+      label={label}
+      placeholder={placeholder}
+      helperText={helperText}
+      labelTooltip={tooltip}
+      value={values[key]}
+      onChange={(e) => handleChange(key, e.target.value)}
+      rows={rows ?? 3}
+      disabled={disabled}
+    />
+  );
 
   return (
     <div className="space-y-6">
@@ -98,36 +66,35 @@ export function ResponseFlowFormStep({
 
       <Card>
         <CardHeader
-          title="Practice Details"
+          title="Campaign Details"
           subtitle="Update values to populate messaging."
         />
         <div className="space-y-4">
-          {fields.map(({ key, label, placeholder, helperText, tooltip, multiline }) =>
-            multiline ? (
-              <Textarea
-                key={key}
-                label={label}
-                placeholder={placeholder}
-                helperText={helperText}
-                labelTooltip={tooltip}
-                value={values[key]}
-                onChange={(e) => handleChange(key, e.target.value)}
-                rows={key === "education_short" ? 2 : 3}
-                disabled={disabled}
-              />
-            ) : (
-              <Input
-                key={key}
-                label={label}
-                placeholder={placeholder}
-                helperText={helperText}
-                labelTooltip={tooltip}
-                value={values[key]}
-                onChange={(e) => handleChange(key, e.target.value)}
-                disabled={disabled}
-              />
-            )
-          )}
+          {/* Row 1: Practice Name | Outreach Name */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {renderInput("practice_name", "Practice Name", "e.g. Smith Chiropractic")}
+            {renderInput("outreach_name", "Outreach Name", "e.g. Dr. Smith")}
+          </div>
+          {/* Row 2: Address | Phone */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {renderInput("full_address", "Full Address", "e.g. 123 Main St, City, ST 12345")}
+            {renderInput("phone", "Phone", "e.g. (555) 123-4567")}
+          </div>
+          {/* Row 3: Package Name | Casual Service Name (and Product Name if applicable) */}
+          <div className={`grid grid-cols-1 gap-4 ${hasProductName ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+            {renderInput("package_name_with_price", "Package Name (with price)", "e.g. $49 New Patient Exam", 'e.g. "$49 New Patient Exam"')}
+            {renderInput(
+              "package_name_casual",
+              "Casual Service Name",
+              "e.g. chiropractic adjustment, Softwave treatment",
+              'e.g. "chiropractic adjustment", "Softwave treatment"',
+              "Used in sentences like: Hi John, have you ever had a ___ before?"
+            )}
+            {hasProductName && renderInput("product_name", "Product Name", "e.g. Softwave TRT or Trifecta PRO 450")}
+          </div>
+          {/* Education fields - full width */}
+          {renderTextarea("education_short", "Education (short)", "Brief intro sentence for SMS", "One short sentence for the first text message.", undefined, 2)}
+          {renderTextarea("education_long", "Education (long)", "Full paragraph for the first email", "Full paragraph introducing your practice and value.")}
         </div>
       </Card>
     </div>
