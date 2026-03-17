@@ -96,7 +96,7 @@ export default function PatientResponseFlowPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="mx-auto max-w-6xl space-y-6">
       <div>
         <h1 className="text-2xl font-bold text-[var(--foreground)]">
           Patient Response Flow
@@ -123,7 +123,7 @@ export default function PatientResponseFlowPage() {
             subtitle={
               step === "campaign"
                 ? "Select the type of campaign to get started"
-                : "Change anytime to switch sequence messaging"
+                : undefined
             }
           />
           <CampaignSelectStep

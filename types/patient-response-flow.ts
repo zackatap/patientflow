@@ -15,7 +15,7 @@ export const CAMPAIGN_OPTIONS: Array<{
 }> = [
   {
     id: "pain_device",
-    label: "Pain Device / Shockwave",
+    label: "Device / Shockwave / Etc",
     description: "Softwave, Shockwave, Laser, Red Light, etc.",
     education_short:
       "Shockwave Therapy jumpstarts your body's own healing process, breaking down damaged tissue and restoring function without surgery.",

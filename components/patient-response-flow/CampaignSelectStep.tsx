@@ -23,7 +23,7 @@ export function CampaignSelectStep({ selected, onSelect }: CampaignSelectStepPro
         Choose the type of campaign you want to craft. This will customize your
         sequence messaging and pre-fill education copy.
       </p>
-      <div className="flex flex-wrap gap-2 sm:gap-3">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 lg:grid-cols-4">
         {CAMPAIGN_OPTIONS.map((opt) => {
           const isSelected = selected === opt.id;
           return (
@@ -31,7 +31,7 @@ export function CampaignSelectStep({ selected, onSelect }: CampaignSelectStepPro
               key={opt.id}
               type="button"
               onClick={() => onSelect(opt.id)}
-              className={`group relative flex min-w-0 flex-1 items-center overflow-hidden rounded-lg border py-2.5 pl-3 pr-20 text-left transition-all duration-150 sm:min-w-[200px] sm:flex-initial sm:py-3 sm:pl-4 sm:pr-24 ${
+              className={`group relative flex min-w-0 w-full items-center overflow-hidden rounded-lg border py-2.5 pl-3 pr-20 text-left transition-all duration-150 sm:py-3 sm:pl-4 sm:pr-24 ${
                 isSelected
                   ? "border-[var(--accent)] bg-[var(--accent)]/10"
                   : "border-[var(--border)] bg-[var(--card)]/80 hover:border-[var(--border)]/80 hover:bg-[var(--card-hover)]"

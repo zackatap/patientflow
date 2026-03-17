@@ -26,7 +26,6 @@ const BASE_FIELDS: Array<{
     key: "phone",
     label: "Phone",
     placeholder: "e.g. (555) 123-4567",
-    helperText: "Used for calls and as your text line (Twilio) in the sequence.",
   },
   {
     key: "package_name_with_price",
@@ -35,7 +34,7 @@ const BASE_FIELDS: Array<{
   },
   {
     key: "package_name_casual",
-    label: "Package Name (casual)",
+    label: "Casual Service Name",
     placeholder: "e.g. chiropractic adjustment, Softwave treatment",
     helperText: 'e.g. "chiropractic adjustment", "Softwave treatment"',
     tooltip:
@@ -71,7 +70,7 @@ export function ResponseFlowFormStep({
         {
           key: "product_name" as keyof ResponseFlowValues,
           label: "Product Name",
-          placeholder: "e.g. chiropractic care",
+          placeholder: "e.g. Softwave TRT or Trifecta PRO 450",
           helperText: undefined as string | undefined,
           tooltip: undefined as string | undefined,
           multiline: false as boolean,
@@ -87,13 +86,10 @@ export function ResponseFlowFormStep({
   return (
     <div className="space-y-6">
       <Card>
-        <CardHeader
-          title="Demo Name"
-          subtitle="Remove to show GHL Custom Value in your sequence"
-        />
         <Input
-          label=""
+          label="Demo Name"
           placeholder="e.g. John"
+          helperText="Remove to show GHL Custom Value in your sequence"
           value={values.demo_name}
           onChange={(e) => handleChange("demo_name", e.target.value)}
           disabled={disabled}
@@ -103,7 +99,7 @@ export function ResponseFlowFormStep({
       <Card>
         <CardHeader
           title="Practice Details"
-          subtitle="Values map to High Level CRM placeholders"
+          subtitle="Update values to populate messaging."
         />
         <div className="space-y-4">
           {fields.map(({ key, label, placeholder, helperText, tooltip, multiline }) =>
