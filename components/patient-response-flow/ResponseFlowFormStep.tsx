@@ -10,12 +10,14 @@ interface ResponseFlowFormStepProps {
   values: ResponseFlowValues;
   onChange: (values: ResponseFlowValues) => void;
   disabled?: boolean;
+  inSidebar?: boolean;
 }
 
 export function ResponseFlowFormStep({
   values,
   onChange,
   disabled,
+  inSidebar = false,
 }: ResponseFlowFormStepProps) {
   const campaign = CAMPAIGN_OPTIONS.find((c) => c.id === values.campaign);
   const hasProductName = campaign?.hasProductName ?? false;
@@ -75,13 +77,13 @@ export function ResponseFlowFormStep({
             {renderInput("practice_name", "Practice Name", "e.g. Smith Chiropractic")}
             {renderInput("outreach_name", "Outreach Name", "e.g. Dr. Smith")}
           </div>
-          {/* Row 2: Address | Phone */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {/* Row 2: Address | Phone - full width when in sidebar */}
+          <div className={`grid grid-cols-1 gap-4 ${inSidebar ? "" : "sm:grid-cols-2"}`}>
             {renderInput("full_address", "Full Address", "e.g. 123 Main St, City, ST 12345")}
             {renderInput("phone", "Phone", "e.g. (555) 123-4567")}
           </div>
-          {/* Row 3: Package Name | Casual Service Name (and Product Name if applicable) */}
-          <div className={`grid grid-cols-1 gap-4 ${hasProductName ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+          {/* Row 3: Package Name | Casual Service Name (and Product Name if applicable) - full width when in sidebar */}
+          <div className={`grid grid-cols-1 gap-4 ${inSidebar ? "" : hasProductName ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
             {renderInput("package_name_with_price", "Package Name (with price)", "e.g. $49 New Patient Exam", 'e.g. "$49 New Patient Exam"')}
             {renderInput(
               "package_name_casual",

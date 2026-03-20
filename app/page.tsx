@@ -153,7 +153,7 @@ export default function PatientResponseFlowPage() {
               ← Edit details
             </Button>
           </div>
-          <div className="grid w-full gap-6 lg:grid-cols-[1fr_2fr] lg:items-stretch">
+          <div className="grid w-full gap-6 xl:grid-cols-[1fr_2fr] xl:items-stretch">
             <div className="flex min-w-0 flex-col space-y-6">
               {saveStatus !== "idle" && (
                 <p className="text-sm text-[var(--muted)]">
@@ -164,6 +164,7 @@ export default function PatientResponseFlowPage() {
                 values={values}
                 onChange={setValues}
                 disabled={loading}
+                inSidebar={true}
               />
             </div>
             <Card className="flex min-w-0 flex-col">
