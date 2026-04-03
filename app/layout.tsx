@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, DM_Serif_Display, Space_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 
@@ -35,6 +36,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://link.automatedpractice.com/js/external-tracking.js"
+          data-tracking-id="tk_88be99b6c88c4cafa06f919334fc01bd"
+          strategy="beforeInteractive"
+        />
+      </head>
       <body
         className={`${spaceGrotesk.variable} ${dmSerif.variable} ${spaceMono.variable} antialiased`}
       >
